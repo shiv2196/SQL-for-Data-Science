@@ -1,0 +1,72 @@
+1. Find all the tracks that have a length of 5,000,000 milliseconds or more.
+
+select Milliseconds 
+from Tracks 
+where Milliseconds >= 5000000;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+2. Find all the invoices whose total is between $5 and $15 dollars.
+
+select Total 
+from Invoices 
+where Total between '5' and '15';
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+3. Find all the customers from the following States: RJ, DF, AB, BC, CA, WA, NY.
+
+select * 
+from Customers 
+where State in ('RJ', 'DF', 'AB', 'BC', 'CA', 'WA', 'NY');
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+4. Find all the invoices for customer 56 and 58 where the total was between $1.00 and $5.00.
+
+select * 
+from Invoices 
+where CustomerId in (56,58) and total between 1 and 5;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+5. Find all the tracks whose name starts with 'All'.
+
+select * 
+from Tracks 
+where Name like 'All%';
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+6. Find all the customer emails that start with "J" and are from gmail.com.
+
+select * 
+from Customers 
+where Email like 'J%@gmail.com';
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+7. Find all the invoices from the billing city Brasília, Edmonton, and Vancouver and sort in descending order by invoice ID.
+
+select * 
+from Invoices 
+where BillingCity in ('Brasília', 'Edmonton', 'Vancouver') order by InvoiceId Desc;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+8.  Show the number of orders placed by each customer (hint: this is found in the invoices table) and sort the result by the number of orders in descending order.
+
+select CustomerId, count(*) as total_orders 
+from Invoices 
+group by CustomerId 
+order by total_orders desc;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+9. Find the albums with 12 or more tracks.
+
+select AlbumId, count(*) as total_tracks 
+from Tracks 
+group by AlbumId having count(*) >= 12 ;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
