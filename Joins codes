@@ -1,0 +1,46 @@
+\\\\\\\\\\\ ER Diagram \\\\\\\\\\\\\\
+https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/UAPENoOVEei4RQ5L9j9nDA_5042a1f0839511e8beb2b5b4ae9fa29a_ER-Diagram.png?expiry=1532131200000&hmac=MPlvku13AThiVQ5zkHL7tcQwp7ftKeWMgVj4r3zB9Z4)
+
+
+
+
+1. How many albums does the artist Led Zeppelin have?
+
+> select count(Albumid) 
+  from albums inner join artists on albums.Artistid = artists.Artistid 
+  and artists.Name = 'Led Zeppelin';
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+2. Create a list of album titles and the unit prices for the artist "Audioslave".
+
+>  select albums.Title, tracks.UnitPrice 
+   from ((albums inner join artists on albums.Artistid = artists.Artistid 
+   and artists.name = 'Audioslave') 
+   inner join tracks on albums.Albumid = tracks.Albumid);
+   
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+3. Find the first and last name of any customer who does not have an invoice. 
+Are there any customers returned from the query?
+
+>  select FirstName, LastName, invoices.Invoiceid 
+   from customers left join invoices 
+   on customers.Customerid = invoices.Customerid
+   where Invoiceid = NULL; 
+   
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+4. Find the total price for each album and what is the total price for the album “Big Ones”?
+
+>  select albums.Title, sum(tracks.UnitPrice) 
+   from albums inner join tracks on albums.Albumid = tracks.Albumid 
+   and albums.Title = 'Big Ones';
+   
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+5. How many records are created when you apply a Cartesian join to the invoice and invoice items table?
+
+>  select invoices.InvoiceId from invoices cross join invoice_items;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
