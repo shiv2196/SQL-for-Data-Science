@@ -27,7 +27,7 @@ Are there any customers returned from the query?
 >  select FirstName, LastName, invoices.Invoiceid 
    from customers left join invoices 
    on customers.Customerid = invoices.Customerid
-   where Invoiceid = NULL; 
+   where Invoiceid is NULL; 
    
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
