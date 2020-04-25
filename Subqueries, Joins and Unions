@@ -1,0 +1,62 @@
+\\\\\\\\\\\\\\\\ ER Diagram \\\\\\\\\\\\\\\\\
+https://ucde-rey.s3.amazonaws.com/DSV1015/ChinookDatabaseSchema.png
+
+1. Using a subquery, find the names of all the tracks for the album "Californication".
+
+>  select Name, AlbumId 
+from Tracks where AlbumId in 
+(select AlbumId from Albums where Title = 'Californication');
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+2. Find the total number of invoices for each customer along with the customer's full name, city and email.
+
+>  select FirstName, LastName, City, Email 
+   from Customers where CustomerId in (select CustomerId from Invoices);
+
+                               OR
+
+   select c.FirstName, c.LastName, c.City, c.Email, i.InvoiceId 
+   from Customers c inner join Invoices i on c.CustomerId = i.InvoiceId;
+   
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+3. Retrieve the track name, album, artistID, and trackID for all the albums.
+
+>  select t.Name, a.Title, a.ArtistId, t.TrackId 
+   from Tracks t inner join Albums a on t.AlbumId = a.AlbumId;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+4. Retrieve a list with the managers last name, and the last name of the employees who report to him or her.
+
+>  select A.LastName as Manager_Name, B.LastName as Employee_Name 
+   from Employees A, Employees B where B.Reportsto = A.EmployeeId;
+   
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+5. Find the name and ID of the artists who do not have albums.
+
+>  select a.Name, a.ArtistId, al.Title 
+   from Artists a left join Albums al on a.ArtistId = al.ArtistId 
+   where Title is NULL;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+6. Use a UNION to create a list of all the employee's and customer's first names and last names 
+   ordered by the last name in descending order.
+
+>  select FirstName, LastName 
+   from Customers union select FirstName, LastName 
+   from Employees order by LastName desc;
+   
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+7. See if there are any customers who have a different city listed in their billing city versus their customer city.
+
+>  select c.FirstName, c.CustomerId 
+   from Customers c inner join Invoices i 
+   on c.CustomerId = i.CustomerId 
+   where c.City <> i.BillingCity;
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
